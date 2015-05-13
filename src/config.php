@@ -18,9 +18,11 @@ switch ($production_env) {
     case 'development':
         error_reporting(-1);
         @ini_set('display_errors', 'On');
+        break;
     case 'production':
         @ini_set('log_errors', 'On');
         @ini_set('display_errors', 'Off');
+        break;
 }
 
 function tsl($path)

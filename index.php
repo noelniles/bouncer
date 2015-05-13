@@ -4,4 +4,5 @@
  * @package Bouncer
  * @author Noel Niles
  */
-require_once 'config.php';
+require_once 'src/config.php';
+Routes::dispatch();
