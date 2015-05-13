@@ -5,4 +5,5 @@
  * @author Noel Niles
  */
 require_once 'src/config.php';
-Routes::dispatch();
+$router = new Routes();
+$router->dispatch();

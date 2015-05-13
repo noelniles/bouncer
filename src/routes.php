@@ -7,36 +7,34 @@
 class Routes {
     private $request = ''; 
 
+    private $page = '';
+    
     function __construct()
     {
-        $this->$request = $_SERVER['REQUEST_URI'];
-        array_filter($this->$request, 'sanitize_uri');    
-    }
-
-    private function sanitize_uri(&$uri)
-    {
-        $uri = trim($uri);
-        $uri - filter_var($uri, FILTER_SANITIZE_URI);
+        $this->request = $_SERVER['REQUEST_URI'];
+        $this->request = trim($this->request);
+        $this->request = filter_var($this->request, FILTER_SANITIZE_URL);
     }
 
     private function interpret_request()
     {
-        switch ($this->$request){
+        switch (basename($this->request)){
             case 'login':
-                $page = VWS . 'login_view.php';
+                $this->page = VWS . 'login_view.php';
                 break;
             case 'home':
-                $page = VWS . 'home_view.php';
+                $this->page = VWS . 'home_view.php';
                 break;
             default:
-                $page = VWS . 'login_view.php';
-        } 
+                $this->page = VWS . 'home_view.php';
+        }
+        include $this->page;
     }
 
-    public static function dispatch()
+    public function dispatch()
     { 
-        if (!empty($request)) {
-            $this->$interpret_request();    
+        if (!empty($this->request)) {
+            $this->interpret_request();    
         }
     }
 }
